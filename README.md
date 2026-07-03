@@ -82,5 +82,3 @@ telnet client 12 -p my_protocol -pw my_secure_password
 * 代码中的注释请全部阅读一遍，会有些可以配置的地方
 
 Copyright (c) 2026 HTP2048
-
-```
