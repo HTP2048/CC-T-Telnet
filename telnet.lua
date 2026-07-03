@@ -6,7 +6,7 @@
   * 已测试可用的CC:T版本：1.120.0
   * @author         : HTP2048
   * @date           : 2026-07-03
-  * @version        : 1.0.0
+  * @version        : 1.0.1
   *********************************************************************************
   * @attention
   *
@@ -81,7 +81,7 @@ local function parseArgs(args)
 
     -- 初始化：构建映射表
     for k, cfg in pairs(SCHEMA) do
-        -- Bool 类型默认设为 false，非 Bool 类型不预设
+        if cfg.default ~= nil and cfg.type ~= "bool" then result[k] = cfg.default end
         if cfg.type == "bool" then result[k] = false end
         if cfg.pos then pos_map[cfg.pos] = k end
         alias_map[k] = k
@@ -132,12 +132,19 @@ local function parseArgs(args)
                     result[canonical] = args[i]
                 end
             end
-
-        -- 处理位置参数
         else
             local target_key = pos_map[current_pos]
             if target_key then
-                result[target_key] = arg
+                local cfg = SCHEMA[target_key]
+                if cfg.type == "number" then
+                    result[target_key] = tonumber(arg) or error("Invalid number for positional argument '" .. target_key .. "': " .. arg, 0)
+                elseif cfg.type == "bool" then
+                    -- 如果位置参数定义为 bool，支持简单的真值判断
+                    local val = string.lower(arg)
+                    result[target_key] = (val == "true" or val == "1" or val == "yes" or val == "y")
+                else
+                    result[target_key] = arg
+                end
                 current_pos = current_pos + 1
             end
         end
