@@ -197,7 +197,7 @@ if opts.mode == "client" and not opts.host then
 end
 
 -- ========================================================
--- 核心TEA安全模块 (支持空密码加密与 Hex 格式化传输)
+-- TEA安全模块
 -- ========================================================
 
 local hex_utils = {}
@@ -444,7 +444,7 @@ if opts.mode == "server" then
                 if event_data[3].type == "REQ_INIT" and not waiting_id and not timer_id then
                     local decryptedId = tonumber(xxtea_cbc.decrypt(event_data[3].data, opts.password))
                     if decryptedId == event_data[2] then
-                        -- 验证通过，进入核心需求3：同一时间单客户端连接抢占控制
+                        -- 验证通过
                         if connected_client_id and connected_client_id ~= event_data[2] then
                             if opts.exclusive then
                                 -- 独占模式：给老客户端发心跳探测
@@ -602,7 +602,7 @@ else
                         term.clear()
                         term.setCursorPos(1, 1)
                         print("Kicked: " ..event_data[3].data)
-                        error("Disconnected By Server", 0) -- 显式退出程序
+                        error("Disconnected By Server", 0)
                     elseif event_data[3].type == "PING" then
                         rednet.send(opts.host, {type = "ACK", data = nil}, opts.protocol)
                     end
@@ -617,7 +617,7 @@ else
     
     local function do_handshake()
         while true do
-            -- 核心需求1：客户端计算针对本地物理编号的密码密文
+            -- 客户端计算针对本地物理编号的密码密文
             local encryptedId = xxtea_cbc.encrypt(tostring(os.getComputerID()), opts.password)
             rednet.send(opts.host, {type = "REQ_INIT", data = encryptedId}, opts.protocol)
             
