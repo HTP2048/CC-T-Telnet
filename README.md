@@ -1,7 +1,7 @@
 # CC:Tweaked Telnet
 
 用于 CC:Tweaked 的类Telnet服务端/客户端程序
-支持智能多设备抢占、密码认证及外部monitor等功能
+支持智能多设备抢占、密码认证及外部monitor等功能。
 
 ## ✨ 核心特性
 
@@ -55,7 +55,7 @@ telnet server -p my_protocol -pw my_secure_password -m -e
 
 在你的本地电脑上启动客户端，输入相同的协议与密码，并指定服务端的 Computer ID。
 
-**连接至 ID 为 12 的服务器：**
+**连接至 ID 为 12 的服务器并开启光标跟随：**
 
 ```bash
 telnet client 12 -p my_protocol -pw my_secure_password -c
