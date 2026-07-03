@@ -6,7 +6,7 @@
   * 已测试可用的CC:T版本：1.120.0
   * @author         : HTP2048
   * @date           : 2026-07-03
-  * @version        : 1.0.1
+  * @version        : 1.0.2
   *********************************************************************************
   * @attention
   *
@@ -69,8 +69,13 @@ local SCHEMA = {
     },
     exclusive = {
         type = "bool",
-        alias = {"e", "excl", "exc"},
+        alias = {"e", "exc", "excl"},
         desc = "Exclusive connection"
+    },
+    cursorfollow = {
+        type = "bool",
+        alias = {"c", "cf", "curfol"},
+        desc = "Whether the window automatically follows the cursor."
     }
 }
 
@@ -602,7 +607,7 @@ else
                         if virtual_screen and virtual_screen[func_name] then
                             safe_call(function()
                                 virtual_screen[func_name](table.unpack(event_data[3].data, 2))
-                                update_camera()
+                                if opts.cursorfollow then update_camera() end
                             end)
                         end
                     elseif event_data[3].type == "DISCONNECT" then
