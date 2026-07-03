@@ -1,7 +1,7 @@
 # CC:Tweaked Telnet
 
 用于 CC:Tweaked 的类Telnet服务端/客户端程序
-支持智能多设备抢占、密码认证及外部monitor
+支持智能多设备抢占、密码认证及外部monitor等功能
 
 ## ✨ 核心特性
 
@@ -11,7 +11,8 @@
 * **全事件同步**：支持客户端将全部键盘事件 (`key`, `char`, `paste`等)透传至服务端。
 * **高级外设支持**：服务端支持将画面重定向至外接显示器 (`monitor`)。
 * **连接控制**：支持抢占模式与独占模式 (`exclusive`) 管理多客户端冲突，内置超时掉线检测。
-* **拖动预览**：无需担心服务端屏幕比客户端大的问题，客户端可随意拖动预览整个服务端屏幕
+* **拖动预览**：无需担心服务端屏幕比客户端大的问题，客户端可随意拖动预览整个服务端屏幕。
+* **光标跟随**：可选的光标跟随功能，打字再也不用手动拖动屏幕。
 ---
 
 ## 📦 安装与准备
@@ -57,7 +58,7 @@ telnet server -p my_protocol -pw my_secure_password -m -e
 **连接至 ID 为 12 的服务器：**
 
 ```bash
-telnet client 12 -p my_protocol -pw my_secure_password
+telnet client 12 -p my_protocol -pw my_secure_password -c
 
 ```
 
@@ -70,15 +71,17 @@ telnet client 12 -p my_protocol -pw my_secure_password
 | `mode` (位置 1) | 无 | String | **[必填]** 运行模式：`server` 或 `client` | 无 |
 | `host` (位置 2) | `-h`, `--server`, `--id` | Number | **[客户端必填]** 远程服务器的 Computer ID | 无 |
 | `--protocol` | `-p`, `--proto` | String | **[必填]** Rednet 通信协议名称 | 无 |
-| `--password` | `-pw`, `--pwd` | String | 连接密码 | `""` (空) |
+| `--password` | `-pw`, `--pwd` | String | 连接密码 | 无 |
 | `--monitor` | `-m`, `--display` | Bool | 服务端是否启用外接显示器 | `false` |
-| `--exclusive` | `-e`, `--excl`, `--exc` | Bool | 服务端是否开启独占模式 (关闭则新连接直接踢掉老连接) | `false` |
+| `--exclusive` | `-e`, `--excl`, `--exc` | Bool | 服务端是否开启独占模式 | `false` |
+| `--cursorfollow` | `-c`, `--cf`, `--curfol` | Bool | 客户端是否启用光标跟随功能 | `false` |
 
 ---
 
 ## 📄 一些其他的细节
 
 * 客户端的terminate会被透传至服务端，所以你在客户端执行停止其实是停止了服务端，如果想单独停止客户端，请直接点击关机按钮。
+* 某些带有简易UI的程序由于会持续刷新屏幕，如果开启光标自动跟随会导致无法自由预览整个屏幕，如遇此类情况请关闭光标自动跟随功能。
 * 代码中的注释请全部阅读一遍，会有些可以配置的地方
 
 Copyright (c) 2026 HTP2048
