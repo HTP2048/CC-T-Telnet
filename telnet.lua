@@ -3,6 +3,7 @@
   * @file           : telnet.lua
   * @brief          : 用于 CC:Tweaked 的类Telnet服务端/客户端程序
   * 支持命令行参数解析、密码认证及安全连接管理。
+  * 已测试可用的CC:T版本：1.120.0
   * @author         : HTP2048
   * @date           : 2026-07-03
   * @version        : 1.0.0
