@@ -71,7 +71,7 @@ telnet client 12 -p my_protocol -pw my_secure_password -c
 | `mode` (位置 1) | 无 | String | **[必填]** 运行模式：`server` 或 `client` | 无 |
 | `host` (位置 2) | `-h`, `--server`, `--id` | Number | **[客户端必填]** 远程服务器的 Computer ID | 无 |
 | `--protocol` | `-p`, `--proto` | String | **[必填]** Rednet 通信协议名称 | 无 |
-| `--password` | `-pw`, `--pwd` | String | 连接密码 | 无 |
+| `--password` | `--pw`, `--pwd` | String | 连接密码 | 无 |
 | `--monitor` | `-m`, `--display` | Bool | 服务端是否启用外接显示器 | `false` |
 | `--exclusive` | `-e`, `--excl`, `--exc` | Bool | 服务端是否开启独占模式 | `false` |
 | `--cursorfollow` | `-c`, `--cf`, `--curfol` | Bool | 客户端是否启用光标跟随功能 | `false` |
